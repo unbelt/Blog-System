@@ -1,1 +1,1 @@
-<h1>Index Page | <?= $data['name'] ?></h1>
+<h1>Index Page | <?= 'DATA' ?></h1>

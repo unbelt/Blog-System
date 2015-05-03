@@ -1,13 +1,22 @@
 <?php
 
-define('ROOT', dirname(__FILE__) . '\\');
+// -- DATABASE CONNECTION
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', 'root');
+define('DB_NAME', 'blog');
 
+// -- DIRECTORIES
+define('ROOT', dirname(__FILE__) . '/');
 define('DIR_ROOT', basename(dirname(__FILE__)));
-define('DIR_MODELS', ROOT . 'models\\');
-define('DIR_VIEWS', ROOT . 'views\\');
-define('DIR_CONTROLLERS', ROOT . 'controllers\\');
+define('DIR_CONFIG',  ROOT . 'config/');
+define('DIR_MODELS', ROOT . 'models/');
+define('DIR_VIEWS', ROOT . 'views/');
+define('DIR_CONTROLLERS', ROOT . 'controllers/');
 define('FILE_LAYOUT', DIR_VIEWS . 'layout.php');
-define('DIR_PUBLIC', 'http://' . $_SERVER['HTTP_HOST'] . '\\Blog-System\\public\\');
+define('DIR_PUBLIC', 'http://' . $_SERVER['HTTP_HOST'] . '/Blog-System/public/');
 
+require_once DIR_CONFIG . 'Database.php';
 require_once ROOT . 'App.php';
+require_once DIR_MODELS . 'Model.php';
 require_once DIR_CONTROLLERS . 'Controller.php';

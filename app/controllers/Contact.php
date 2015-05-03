@@ -1,9 +1,9 @@
-<?php
+<?php namespace Controllers;
 
 class Contact extends Controller
 {
     public function index()
     {
-        $this->view('contact/index');
+        $this->view();
     }
 }

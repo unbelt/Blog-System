@@ -1,6 +1,13 @@
-<?php
+<?php namespace Models;
 
-class User
+class User extends Model
 {
-    public $name;
+    protected $username;
+    protected $email;
+    protected $password;
+
+    public function __construct()
+    {
+        parent::__construct(['table' => 'users']);
+    }
 }

@@ -1,16 +1,14 @@
-<?php
+<?php namespace Controllers;
 
 class Home extends Controller
 {
     public function index($params = null)
     {
-        $user = $this->model('User');
-        $user->name = $params;
-
-        $this->view('home/index', ['name' => $user->name]);
+        $this->view();
     }
 
-    public function error() {
-        $this->view('error/index');
+    public function error()
+    {
+        $this->view();
     }
 }

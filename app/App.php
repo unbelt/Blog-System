@@ -2,8 +2,8 @@
 
 class App
 {
+    static $method = 'index';
     protected $controller = 'home';
-    protected $method = 'index';
     protected $params = [];
 
     public function __construct()
@@ -16,34 +16,33 @@ class App
             unset($url[0]);
 
             require_once DIR_CONTROLLERS . $this->controller . '.php';
-            $this->controller = new $this->controller;
 
             if (isset($url[1])) {
                 if (method_exists($this->controller, $url[1])) {
-                    $this->method = $url[1];
+                    App::$method = $url[1];
                     unset($url[1]);
                 } else {
                     $this->controller = 'home';
-                    $this->method = 'error';
+                    App::$method = 'error';
 
                     require_once DIR_CONTROLLERS . $this->controller . '.php';
-                    $this->controller = new $this->controller;
                 }
             }
         } else {
             if (isset($url[0])) {
-                $this->method = 'error';
+                App::$method = 'error';
             }
 
             require_once DIR_CONTROLLERS . $this->controller . '.php';
-            $this->controller = new $this->controller;
         }
 
         if ($url) {
             $this->params = array_values($url);
         }
 
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        $controller = '\\Controllers\\' . $this->controller;
+        $this->controller = new $controller;
+        call_user_func_array([$this->controller, App::$method], $this->params);
     }
 
     protected function parseUrl()
