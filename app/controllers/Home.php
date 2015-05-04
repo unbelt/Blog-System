@@ -2,13 +2,17 @@
 
 class Home extends Controller
 {
-    public function index($params = null)
+    public function __construct()
     {
-        $this->view();
+        parent::__construct('post');
+    }
+
+    public function index()
+    {
+        var_dump($this->model->find());
     }
 
     public function error()
     {
-        $this->view();
     }
 }

@@ -1,10 +1,11 @@
 <?php namespace Controllers;
 
-class Contact extends Controller
+
+class Post extends Controller
 {
     public function __construct()
     {
-        parent::__construct('pages');
+        parent::__construct('post');
     }
 
     public function index()

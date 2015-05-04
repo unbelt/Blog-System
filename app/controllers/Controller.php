@@ -6,29 +6,22 @@ class Controller
     protected $template;
     protected $model;
 
-    protected function model($model)
+    public function __construct($model = 'pages', $view = null, $layout = FILE_LAYOUT)
     {
-        require_once DIR_MODELS . $model . '.php';
-        $model = '\\Models\\' . $model;
+        $class = new \ReflectionClass(get_class($this));
+        $class_name = $class->getShortName();
 
-        return new $model();
-    }
+        // Load model
+        include_once DIR_MODELS . ucfirst(strtolower($model)) . '.php';
+        $model_class = '\\Models\\' . $model;
+        $this->model = new $model_class(['table' => 'none']);
 
-    protected function view($data = [], $view = null, $layout = FILE_LAYOUT)
-    {
-        if (!isset($view)) {
-            $class = new \ReflectionClass(get_class($this));
+        // Load view
+        $view = $view ? $view : strtolower($class_name . '/' . \App::$method);
+        Controller::$view = DIR_VIEWS . $view;
 
-            Controller::$view = strtolower(DIR_VIEWS . $class->getShortName()) . '/' . \App::$method;
-        } else {
-            Controller::$view = $view;
-        }
-
+        // Load template
         $this->template = $layout;
-
-        /*$model = DIR_MODELS . get_class($this);
-        $this->model = new $model(['table' => 'none']);*/
-
         include_once $this->template;
     }
 }

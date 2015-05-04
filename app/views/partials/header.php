@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><?= $data['title'] ?> | Blog System</title>
+    <title><?= App::$page_title ?> | Blog System</title>
     <link rel="stylesheet" href="<?= DIR_PUBLIC ?>css/main.css">
     <link rel="stylesheet" href="<?= DIR_PUBLIC ?>libs/bootstrap/css/bootstrap.min.css">
     <link rel="shortcut icon" href="<?= DIR_PUBLIC ?>img/favicon.ico" type="image/x-icon">

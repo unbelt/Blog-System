@@ -3,6 +3,7 @@
 class App
 {
     static $method = 'index';
+    static $page_title = 'Home';
     protected $controller = 'home';
     protected $params = [];
 
@@ -39,6 +40,8 @@ class App
         if ($url) {
             $this->params = array_values($url);
         }
+
+        App::$page_title = ucfirst($this->controller);
 
         $controller = '\\Controllers\\' . $this->controller;
         $this->controller = new $controller;

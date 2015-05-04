@@ -3,14 +3,18 @@
 class Model
 {
     protected $table;
+    protected $where;
+    protected $columns;
     protected $limit;
     protected $db;
 
     public function __construct($args = [])
     {
-        $args = [
+        $args = array_merge(array(
+            'where' => '',
+            'columns' => '*',
             'limit' => 0
-        ];
+        ), $args);
 
         if (!isset($args['table'])) {
             die('Table not defined.');
@@ -19,25 +23,33 @@ class Model
         extract($args);
 
         $this->table = $table;
+        $this->where = $where;
+        $this->columns = $columns;
         $this->limit = $limit;
 
-        $db_object = \Database::get_instance();
+        $db_object = \Config\Database::get_instance();
         $this->db = $db_object::get_db();
+    }
+
+    public function get($id)
+    {
+        $result = $this->find(['where' => 'id = ' . $id]);
+
+        return $result;
     }
 
     public function find($args = [])
     {
-        $defaults = [
+        $args = array_merge(array(
             'table' => $this->table,
-            'limit' => $this->limit,
             'where' => '',
-            'columns' => '*'
-        ];
+            'columns' => '*',
+            'limit' => 0
+        ), $args);
 
-        array_merge($defaults, $args);
-        extract($defaults);
+        extract($args);
 
-        $query = "SELECT {$columns} FROM {$table}";
+        $query = "select {$columns} from {$table}";
 
         if (!empty($where)) {
             $query .= " WHERE $where";
@@ -48,21 +60,21 @@ class Model
         }
 
         $result_set = $this->db->query($query);
-        $results = $this->process_results($result_set);
+        $results = $this->process_result($result_set);
 
         return $results;
     }
 
-    protected function process_results($result_set)
+    protected function process_result($result_set)
     {
-        $results = [];
+        $result = array();
 
-        if (!empty($result) && $result_set->num_rows > 0) {
-            while ($row = $result_set->fetch_assoc) {
-                $results[] = $row;
+        if (!empty($result_set) && $result_set->num_rows > 0) {
+            while ($row = $result_set->fetch_assoc()) {
+                $result[] = $row;
             }
         }
 
-        return $results;
+        return $result;
     }
 }

@@ -1,1 +1,1 @@
-<h1>Index Page | <?= 'DATA' ?></h1>
+<h1>Home Page</h1>
