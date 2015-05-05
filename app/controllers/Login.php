@@ -9,5 +9,7 @@ class Login extends Controller
 
     public function index()
     {
+        $view = $this->view;
+        include_once $this->template;
     }
 }

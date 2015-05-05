@@ -1,4 +1,3 @@
-</div>
 
 <!--[if lt IE 9]>
 <h1>Your browser is out of date, please <a href="http://browsehappy.com"><strong>update your browser</strong></a>
@@ -14,7 +13,7 @@
     </div>
 </footer>
 
-<script data-main="<?= DIR_PUBLIC ?>js/main" src="<?= DIR_PUBLIC ?>libs/requirejs/require.js"></script>
+<script data-main="js/main.js" src="<?= DIR_PUBLIC ?>libs/require.js"></script>
 
 </body>
 </html>

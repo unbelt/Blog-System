@@ -33,6 +33,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="<?= DIR_PUBLIC ?>home">Home</a></li>
+                <li><a href="<?= DIR_PUBLIC ?>posts">Posts</a></li>
                 <li><a href="<?= DIR_PUBLIC ?>about">About</a></li>
                 <li><a href="<?= DIR_PUBLIC ?>contact">Contact</a></li>
                 <!--<li class="dropdown">
@@ -63,5 +64,4 @@
 </nav>
 
 <!--Main Content-->
-<div id="main">
-    <div class="container">
+<div class="container">

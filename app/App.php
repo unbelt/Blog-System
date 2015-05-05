@@ -2,50 +2,42 @@
 
 class App
 {
-    static $method = 'index';
     static $page_title = 'Home';
-    protected $controller = 'home';
+    protected $controller = 'Home';
+    protected $method = 'index';
     protected $params = [];
 
     public function __construct()
     {
         $url = $this->parseUrl();
 
-        if (isset($url[0]) && file_exists(DIR_CONTROLLERS . $url[0] . '.php')) {
-
+        if (file_exists(DIR_CONTROLLERS . $url[0] . '.php')) {
+            App::$page_title = ucfirst($url[0]);
             $this->controller = $url[0];
             unset($url[0]);
-
-            require_once DIR_CONTROLLERS . $this->controller . '.php';
-
-            if (isset($url[1])) {
-                if (method_exists($this->controller, $url[1])) {
-                    App::$method = $url[1];
-                    unset($url[1]);
-                } else {
-                    $this->controller = 'home';
-                    App::$method = 'error';
-
-                    require_once DIR_CONTROLLERS . $this->controller . '.php';
-                }
-            }
         } else {
-            if (isset($url[0])) {
-                App::$method = 'error';
+            App::$page_title = '404';
+            include_once DIR_VIEWS . '404.php';
+            die();
+        }
+
+        include_once DIR_CONTROLLERS . $this->controller . '.php';
+        $controller = '\Controllers\\' . $this->controller;
+        $this->controller = new $controller;
+
+        if (isset($url[1])) {
+            if (method_exists($this->controller, $url[1])) {
+                $this->method = $url[1];
             }
 
-            require_once DIR_CONTROLLERS . $this->controller . '.php';
+            unset($url[1]);
         }
 
         if ($url) {
             $this->params = array_values($url);
         }
 
-        App::$page_title = ucfirst($this->controller);
-
-        $controller = '\\Controllers\\' . $this->controller;
-        $this->controller = new $controller;
-        call_user_func_array([$this->controller, App::$method], $this->params);
+        call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     protected function parseUrl()
@@ -53,5 +45,7 @@ class App
         if (isset($_GET['url'])) {
             return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
+
+        return ['0' => 'home'];
     }
 }

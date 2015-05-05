@@ -9,10 +9,8 @@ class Home extends Controller
 
     public function index()
     {
-        var_dump($this->model->find());
-    }
-
-    public function error()
-    {
+        $data = $this->model->find(['limit' => 1]);
+        $view = $this->view;
+        include_once $this->template;
     }
 }
