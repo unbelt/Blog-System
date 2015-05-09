@@ -1,5 +1,7 @@
 <?php namespace Controllers;
 
+use Models\Comment;
+
 class Post extends Controller
 {
     public function __construct()
@@ -7,28 +9,53 @@ class Post extends Controller
         parent::__construct('post');
     }
 
+    public function index()
+    {
+        header('Location: ' . DIR_PUBLIC);
+    }
+
     public function view($id = '')
     {
         $post = $this->model->get($id)[0];
+
+        if ($post['status'] != 1) {
+            header('Location: ' . DIR_PUBLIC);
+        }
 
         if (empty($post)) {
             $this->view = '404';
             \App::notFound();
         } else {
+            $this->view = 'post/index';
             $comments = $this->model->find(['table' => 'comments', 'where' => 'post_id = ' . $post['id']]);
-            $tags = $this->model->find(['table' => 'tags', 'where' => 'post_id = ' . $post['id']]);
         }
 
-        $this->view = 'post/index';
+        if (isset($_POST['post_id'], $_POST['user_email'], $_POST['comment'])) {
+
+            $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : null;
+
+            $comment = [
+                'post_id' => $_POST['post_id'],
+                'user_id' => $user_id,
+                'user_email' => $_POST['user_email'],
+                'comment' => $_POST['comment']
+            ];
+
+            include_once DIR_MODELS . 'Comment.php';
+            $comment_class = new Comment();
+            $result = $comment_class->post($comment);
+
+            var_dump($result);
+        }
+
         include_once $this->layout;
     }
 
     public function category($id)
     {
-        $posts = $this->model->find(['table' => 'posts as p INNER JOIN categories as c ON p.category_id = c.id AND c.id = ' . $id]);
+        $posts = $this->model->find(['where' => 'status = 1 AND category_id = ' . $id]);
 
         if (empty($posts)) {
-            $this->view = '404';
             \App::notFound();
         }
 
@@ -38,7 +65,7 @@ class Post extends Controller
 
     public function tag($tag)
     {
-        $posts = $this->model->find(["table" => "posts as p INNER JOIN tags as t ON p.id = t.post_id AND t.value like '%{$tag}%'"]);
+        $posts = $this->model->find(["where" => "`tags` like '%{$tag}%'"]);
 
         $this->view = 'home/index';
         include_once $this->layout;

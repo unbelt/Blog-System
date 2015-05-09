@@ -1,5 +1,7 @@
 <?php namespace Models;
 
+use Config\Database;
+
 class Model
 {
     protected $table;
@@ -27,7 +29,7 @@ class Model
         $this->columns = $columns;
         $this->limit = $limit;
 
-        $db_object = \Config\Database::get_instance();
+        $db_object = Database::get_instance();
         $this->db = $db_object::get_db();
     }
 
@@ -44,7 +46,8 @@ class Model
             'table' => $this->table,
             'where' => '',
             'columns' => '*',
-            'limit' => 0
+            'limit' => 0,
+            'order_by' => ''
         ], $args);
 
         if (!$args) {
@@ -59,6 +62,10 @@ class Model
             $query .= " WHERE $where";
         }
 
+        if (!empty($order_by)) {
+            $query .= " ORDER BY $order_by";
+        }
+
         if (!empty($limit)) {
             $query .= " LIMIT $limit";
         }
@@ -67,6 +74,20 @@ class Model
         $results = $this->process_result($result_set);
 
         return $results;
+    }
+
+    public function delete($args = [])
+    {
+        $args = array_merge([
+            'table' => $this->table,
+            'id' => '',
+        ], $args);
+
+        extract($args);
+
+        $query = "DELETE FROM {$table} WHERE id = {$id}";
+
+        return $this->db->query($query);
     }
 
     protected function process_result($result_set)

@@ -1,6 +1,8 @@
 <div class="col-md-8">
     <?php foreach ($posts as $post): ?>
-        <?php include DIR_VIEWS . '/partials/post.php' ?>
+        <?php
+        $post['content'] = substr($post['content'], 0, 250);
+        include DIR_VIEWS . '/partials/post.php' ?>
     <?php endforeach; ?>
 
     <hr/>

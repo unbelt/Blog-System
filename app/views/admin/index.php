@@ -4,21 +4,20 @@
     </header>
 
     <div class="list-group">
-        <a href="#" class="list-group-item">
+        <a href="<?= DIR_PUBLIC . 'admin' ?>" class="list-group-item">
             <p class="glyphicon glyphicon-pencil"> New Post</p>
         </a>
 
-        <?php
-        foreach ($data as $post): ?>
+        <?php foreach ($this->data as $post): ?>
             <div class="list-group-item">
                 <h4 class="list-group-item-heading"><?= $post['title']; ?></h4>
 
-                <div class="pull-right">
-                    <a href="<?= DIR_PUBLIC . 'admin/post/' . $post['id']; ?>" class="btn btn-danger btn-delete">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
+                <div class="pull-right clearfix">
                     <a href="<?= DIR_PUBLIC . 'admin/post/' . $post['id']; ?>" class="btn btn-default">
                         <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <a href="<?= DIR_PUBLIC . 'admin/delete/' . $post['id']; ?>" class="btn btn-danger btn-delete">
+                        <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 </div>
 
@@ -32,17 +31,21 @@
 <div class="col-md-8">
 
     <form method="post">
-        <?php if (!empty($opened['image'])): ?>
-            <label for="image">Image:</label>
-            <div id="image">
-                <div class="image-container"
-                     style="background-image: url('<?= DIR_PUBLIC . 'img/' . $opened['image']; ?>')"></div>
-            </div>
-        <?php endif ?>
-
         <div class="form-group">
             <label for="image">Image:</label>
+            <?php if (!empty($opened['image'])): ?>
+                <img width="300" src="<?= DIR_PUBLIC . 'img/' . $opened['image']; ?>" alt="NO IMAGE"/>
+            <?php endif ?>
+
             <input type="file" class="form-control" id="image" name="image" value="<?= $opened['image']; ?>"/>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select class="form-control" name="status" id="status">
+                <option <?php $this->selected($opened['status'], 1, 'selected') ?> value="1" selected="selected">Published</option>
+                <option <?php $this->selected($opened['status'], 2, 'selected') ?> value="2">Private</option>
+            </select>
         </div>
 
         <div class="form-group">
@@ -52,41 +55,18 @@
         </div>
 
         <div class="form-group">
-            <label for="username">User:</label>
-
-            <select class="form-control" name="username" id="username">
-                <option value="0">No user</option>
-                <?php
-                foreach ($users as $user) {
-                    echo "<option value=" . $user['username'] . " ";
-                    selected($opened['username'], $user['username'], 'selected');
-                    echo '>' . $user['username'] . '</option>';
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="form-group">
             <label for="category">Category:</label>
-
-            <select class="form-control" name="category" id="category">
-                <option value="0">No category</option>
-                <?php
-                foreach ($categories as $category) {
-                    echo "<option value=" . $category['label'] . " ";
-                    selected($opened['category'], $category['label'], 'selected');
-                    echo '>' . $category['label'] . '</option>';
-                }
-                ?>
+            <select class="form-control" name="category_id" id="category">
+                <?php foreach ($this->categories as $category) : ?>
+                    <option <?php $this->selected($opened['category_id'], $category['id'], 'selected') ?> value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
-
         <div class="form-group">
             <label for="tags">Tags:</label>
             <input class="form-control" type="text" name="tags" id="tags" value="<?= $opened['tags']; ?>"
                    placeholder="Tags">
         </div>
-
         <div class="form-group">
             <label for="body">Content:</label>
             <textarea class="form-control editor" rows="8" name="content" id="content"
@@ -94,8 +74,9 @@
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-default">Save</button>
-            <input type="hidden" name="post" value="1">
         </div>
+
+        <input type="hidden" name="user_id" value="<?= $this->user['id'] ?>"/>
 
         <?php if (isset($opened['id'])) { ?>
             <input type="hidden" name="id" value="<?= $opened['id']; ?>">

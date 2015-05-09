@@ -1,6 +1,6 @@
 <div class="col-md-4">
     <section>
-        <img src="<?= DIR_PUBLIC ?>/img/no-image.png" alt="avatar" class="img-responsive imageborder">
+        <img src="<?= DIR_PUBLIC . 'img/' . $this->user['avatar'] ?>" alt="avatar" class="img-responsive imageborder">
     </section>
     <section>
         <hr>
@@ -43,9 +43,9 @@
                 <?php foreach ($comments as $comment): ?>
                     <hr/>
                     <li class="comment-<?= $comment['id']; ?>">
-                        <a href="<?= DIR_PUBLIC . '/post/view/' . $comment['post_id'] ?>#comments" class="">
+                        <a href="<?= DIR_PUBLIC . '/post/view/' . $comment['post_id']; ?>#comments" class="">
                             <div class="commenterImage">
-                                <img src="<?= DIR_PUBLIC . 'img/' . $comment['user_id']; ?>"/>
+                                <img src="<?= DIR_PUBLIC . 'img/' . $this->user['avatar']; ?>"/>
                             </div>
                             <div class="commentText">
                                 <p><?= $comment['content']; ?></p>

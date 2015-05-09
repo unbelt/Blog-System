@@ -12,6 +12,9 @@ require.config({
         bootstrap: {
             deps: ['jquery']
         },
+        validator: {
+            deps: ['jquery', 'bootstrap']
+        },
         validations: {
             deps: ['validator']
         }
@@ -20,7 +23,7 @@ require.config({
     callback: null
 });
 
-require(['jquery', 'tinymce', 'bootstrap', 'validations'], function () {
+require(['jquery', 'bootstrap', 'validations', 'tinymce'], function ($) {
     $(document).ready(function () {
 
         // target _blank to all external links
@@ -31,7 +34,7 @@ require(['jquery', 'tinymce', 'bootstrap', 'validations'], function () {
         });
 
         // Comments
-        (function () {
+        /*(function () {
 
             // Show/Hide Comments
             $('.close').click(function () {
@@ -88,9 +91,9 @@ require(['jquery', 'tinymce', 'bootstrap', 'validations'], function () {
 
                 return false;
             });
-        }());
+        }());*/
 
-    }); // END document.ready();
+    });
 
     tinymce.init({
         selector: ".editor",

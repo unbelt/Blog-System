@@ -9,7 +9,7 @@ class User extends Controller
 
     public function index()
     {
-        $comments = $this->model->find(['where' => 'user_id = ' . $this->user['id']]);
+        $comments = $this->model->find(['where' => 'user_id = ' . $this->user['id'], 'order_by' => 'date desc']);
         include_once NO_SIDEBAR_LAYOUT;
     }
 
@@ -49,7 +49,7 @@ class User extends Controller
             $user = [
                 'username' => $_POST['username'],
                 'email' => $_POST['email'],
-                'password' => $_POST['password'],
+                'password' => $_POST['password']
             ];
 
             $this->auth->register($user);

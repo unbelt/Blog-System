@@ -66,7 +66,7 @@ class Auth
         $instance = Database::get_instance();
         $db = $instance->get_db();
 
-        $statement = $db->prepare("SELECT id, first_name, last_name, username, email, date_reg, level, status FROM users WHERE username = ? AND password = MD5( ? ) LIMIT 1");
+        $statement = $db->prepare("SELECT id, first_name, last_name, username, email, avatar, date_reg, level, status FROM users WHERE username = ? AND password = MD5( ? ) LIMIT 1");
         $statement->bind_param('ss', $username, $password);
 
         $statement->execute();

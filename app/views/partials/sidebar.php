@@ -31,7 +31,8 @@
             <?php foreach ($this->comments as $comment): ?>
                 <li class="list-group-item">
                     <a href="<?= DIR_PUBLIC . 'post/view/' . $comment['post_id']; ?>#comments"><?= $comment['content']; ?></a><br/>
-                    <em><?= $comment['date']; ?>, from <?= $this->auth->get_user($comment['user_id'])['username'] ?></em>
+                    <em><?= $comment['date']; ?>,
+                        from <?= $this->auth->get_user($comment['user_id'])['username'] ?></em>
                 </li>
             <?php endforeach ?>
         </ul>
@@ -46,7 +47,7 @@
             <ul class="list-inline">
                 <?php foreach ($this->tags as $tag): ?>
                     <li class="list-group-item">
-                        <a href="<?= DIR_PUBLIC . 'post/tag/' . $tag['value']; ?>"><?= $tag['value'] ?></a>
+                        <a href="<?= DIR_PUBLIC . 'post/tag/' . $tag; ?>"><?= $tag; ?></a>
                     </li>
                 <?php endforeach ?>
             </ul>

@@ -9,7 +9,7 @@ class Home extends Controller
 
     public function index()
     {
-        $posts = $this->model->find(['limit' => 5]);
+        $posts = $this->model->find(['where' => 'status = 1', 'order_by' => 'date desc', 'limit' => 3]);
 
         include_once $this->layout;
     }

@@ -13,7 +13,7 @@ class Controller
 
     public $categories;
     public $comments;
-    public $tags;
+    public $tags = [];
 
     protected $view;
     protected $layout;
@@ -51,7 +51,27 @@ class Controller
         $this->model = new $model_class(['table' => 'none']);
 
         $this->categories = $this->model->find(['table' => 'categories']);
-        $this->comments = $this->model->find(['table' => 'comments', 'limit' => 5]);
-        $this->tags = $this->model->find(['table' => 'tags', 'limit' => 20]);
+        $this->comments = $this->model->find(['table' => 'comments', 'order_by' => 'date desc', 'limit' => 5]);
+        $tags = $this->model->find(['table' => 'posts', 'columns' => 'tags', 'where' => 'status = 1', 'limit' => 20]);
+
+        foreach ($tags as $value) {
+            array_push($this->tags, explode(',', $value['tags']));
+        }
+
+        $this->tags = $this->array_flatten($this->tags, 0);
+    }
+
+    function array_flatten($array, $preserve_keys = 1, &$newArray = Array()) {
+        foreach ($array as $key => $child) {
+            if (is_array($child)) {
+                $newArray =& $this->array_flatten($child, $preserve_keys, $newArray);
+            } elseif ($preserve_keys + is_string($key) > 1) {
+                $newArray[$key] = $child;
+            } else {
+                $newArray[] = $child;
+            }
+        }
+
+        return array_filter($newArray);
     }
 }
