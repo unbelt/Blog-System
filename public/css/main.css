@@ -5,7 +5,7 @@ html {
 }
 
 body > .container {
-    margin-top: 70px;
+    margin: 70px auto 50px auto;
 }
 
 aside {
@@ -65,4 +65,86 @@ a {
 .loading {
     pointer-events: none;
     opacity: 0.5;
+}
+
+/* Comment Box */
+.detailBox {
+    width: 320px;
+    border: 1px solid #bbb;
+    margin: 50px;
+}
+
+.titleBox {
+    background-color: #fdfdfd;
+    padding: 10px;
+}
+
+.titleBox label {
+    color: #444;
+    margin: 0;
+    display: inline-block;
+}
+
+.titleBox h2 {
+    display: inline-block;
+}
+
+.commentBox {
+    border-top: 1px dotted #bbb;
+}
+
+.commentList {
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+.commentList li {
+    height: 70px;
+    border-bottom: 1px solid #eee;
+}
+
+.commentList li:last-of-type {
+    border: 0;
+}
+
+.commentList li > div {
+    display: table-cell;
+}
+
+.commenterImage {
+    margin-right: 10px;
+    width: 70px;
+    height: 100%;
+    float: left;
+}
+
+.commenterImage img {
+    width: 100%;
+    border-radius: 15%;
+}
+
+.commentText {
+    float: left;
+}
+
+.commentText p {
+    margin: 5px 0 0 0;
+}
+
+.close {
+    display: block;
+    clear: both;
+}
+
+.sub-text {
+    color: #aaa;
+    font-family: verdana;
+    font-size: 11px;
+}
+
+.actionBox {
+    border-bottom: 1px dotted #bbb;
+    padding: 20px 20px 0 20px;
+    margin-bottom: 10px;
 }

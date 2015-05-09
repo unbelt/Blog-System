@@ -4,9 +4,9 @@ require.config({
     paths: {
         jquery: '../../public/libs/jquery.min',
         bootstrap: '../../public/libs/bootstrap/js/bootstrap.min',
-        validator: '../libs/bootstrap-validator.min',
-        validations: '../js/validations',
-        tinymce: '../libs/tinymce/tinymce.min'
+        validator: '../../public/libs/bootstrap-validator.min',
+        validations: '../../public/js/validations',
+        tinymce: '../../public/libs/tinymce/tinymce.min'
     },
     shim: {
         bootstrap: {
@@ -50,7 +50,7 @@ require(['jquery', 'tinymce', 'bootstrap', 'validations'], function () {
                     comment = $('.comment-' + commentid);
 
                 if (confirm('Confirm delete?')) {
-                    $.get('../ajax/del-comment.php?ajax=true&id=' + commentid);
+                    $.get('../ajax/del-comments.php?ajax=true&id=' + commentid);
                     $(comment).fadeOut();
                     $(this).fadeOut();
                     $('#' + commentid).fadeOut();

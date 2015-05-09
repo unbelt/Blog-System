@@ -1,9 +1,5 @@
-<?php include_once DIR_VIEWS . 'partials/header.php'; ?>
-
-<div class="col-md-8 well">
-    <header>
-        <h1>404 Not Found</h1>
+<div class="col-md-4 col-md-offset-4 well">
+    <header class="text-center">
+        <h1>Nothing found here!</h1>
     </header>
 </div>
-
-<?php include_once DIR_VIEWS . 'partials/footer.php'; ?>

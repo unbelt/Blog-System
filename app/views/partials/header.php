@@ -33,30 +33,31 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="<?= DIR_PUBLIC ?>home">Home</a></li>
-                <li><a href="<?= DIR_PUBLIC ?>posts">Posts</a></li>
                 <li><a href="<?= DIR_PUBLIC ?>about">About</a></li>
                 <li><a href="<?= DIR_PUBLIC ?>contact">Contact</a></li>
-                <!--<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?= DIR_PUBLIC ?>login">Login</a></li>
-                <li><a href="<?= DIR_PUBLIC ?>register">Register</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <span>
-                        User |
-                        <a href="<?= DIR_PUBLIC ?>logout">Logout</a>
-                    </span>
-                </li>
+                <?php if ($this->is_logged): ?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <?= $this->user['username']; ?> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="<?= DIR_PUBLIC ?>user">Profile</a></li>
+
+                            <?php if ($this->is_admin): ?>
+                                <li><a href="<?= DIR_PUBLIC ?>admin">Admin</a></li>
+                            <?php endif ?>
+
+                            <li class="divider"></li>
+                            <li><a href="<?= DIR_PUBLIC ?>user/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php endif ?>
+                <?php if (!$this->is_logged): ?>
+                    <li><a href="<?= DIR_PUBLIC ?>user/login">Login</a></li>
+                    <li><a href="<?= DIR_PUBLIC ?>user/register">Register</a></li>
+                <?php endif ?>
             </ul>
         </div>
         <!--/.nav-collapse -->

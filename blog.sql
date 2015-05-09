@@ -84,7 +84,7 @@ INSERT INTO `options` (`id`, `label`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `posts`
+-- Структура на таблица `post`
 --
 
 CREATE TABLE IF NOT EXISTS `posts` (
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Схема на данните от таблица `posts`
+-- Схема на данните от таблица `post`
 --
 
 INSERT INTO `posts` (`id`, `category_id`, `user_id`, `date`, `title`, `content`, `image_url`, `status`) VALUES
@@ -171,7 +171,7 @@ ALTER TABLE `options`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `posts`
+-- Indexes for table `post`
 --
 ALTER TABLE `posts`
  ADD PRIMARY KEY (`id`), ADD KEY `category_id` (`category_id`), ADD KEY `user_id` (`user_id`);
@@ -203,7 +203,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `comments`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `posts`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
@@ -229,7 +229,7 @@ ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id
 ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Ограничения за таблица `posts`
+-- Ограничения за таблица `post`
 --
 ALTER TABLE `posts`
 ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),

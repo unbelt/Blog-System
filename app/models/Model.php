@@ -40,16 +40,20 @@ class Model
 
     public function find($args = [])
     {
-        $args = array_merge(array(
+        $args = array_merge([
             'table' => $this->table,
             'where' => '',
             'columns' => '*',
             'limit' => 0
-        ), $args);
+        ], $args);
+
+        if (!$args) {
+            return [];
+        }
 
         extract($args);
 
-        $query = "select {$columns} from {$table}";
+        $query = "SELECT {$columns} FROM {$table}";
 
         if (!empty($where)) {
             $query .= " WHERE $where";

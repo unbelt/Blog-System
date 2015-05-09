@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 // Login
     $('#login-form').bootstrapValidator({
         feedbackIcons: {
@@ -193,6 +193,9 @@ $(document).ready(function() {
         fields: {
             name: {
                 validators: {
+                    notEmpty: {
+                        message: 'Name is required and cannot be empty'
+                    },
                     stringLength: {
                         min: 2,
                         max: 30,
@@ -216,6 +219,9 @@ $(document).ready(function() {
             },
             subject: {
                 validators: {
+                    notEmpty: {
+                        message: 'Subject is required and cannot be empty'
+                    },
                     stringLength: {
                         min: 5,
                         max: 50,
@@ -225,6 +231,9 @@ $(document).ready(function() {
             },
             message: {
                 validators: {
+                    notEmpty: {
+                        message: 'Message is required and cannot be empty'
+                    },
                     stringLength: {
                         min: 10,
                         max: 500,

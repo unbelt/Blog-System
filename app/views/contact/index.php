@@ -21,7 +21,7 @@
         </div>
         <div class="form-group">
             <label for="subject" class="col-md-2">Subject</label>
-            <input type="subject" class="form-control" id="subject" name="subject" placeholder="Subject">
+            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
         </div>
 
         <div class="form-group">

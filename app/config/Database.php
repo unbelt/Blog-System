@@ -6,12 +6,7 @@ class Database
 
     private function __construct()
     {
-        $host = DB_HOST;
-        $username = DB_USER;
-        $password = DB_PASS;
-        $name = DB_NAME;
-
-        $db = new \mysqli($host, $username, $password, $name);
+        $db = new \mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
         self::$db = $db;
     }

@@ -9,8 +9,8 @@ class Home extends Controller
 
     public function index()
     {
-        $data = $this->model->find(['limit' => 1]);
-        $view = $this->view;
-        include_once $this->template;
+        $posts = $this->model->find(['limit' => 5]);
+
+        include_once $this->layout;
     }
 }

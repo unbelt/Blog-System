@@ -13,7 +13,7 @@
     </div>
 </footer>
 
-<script data-main="js/main.js" src="<?= DIR_PUBLIC ?>libs/require.js"></script>
+<script data-main="<?= DIR_PUBLIC ?>js/main.js" src="<?= DIR_PUBLIC ?>libs/require.js"></script>
 
 </body>
 </html>
