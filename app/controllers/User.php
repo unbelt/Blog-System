@@ -18,8 +18,6 @@ class User extends Controller
         $user = $this->auth->get_user();
 
         if (empty($user) && isset($_POST['username']) && isset($_POST['password'])) {
-            $this->auth->login($_POST['username'], $_POST['password']);
-
             $logged_in = $this->auth->login($_POST['username'], $_POST['password']);
 
             if ($logged_in) {
@@ -38,22 +36,59 @@ class User extends Controller
         exit();
     }
 
-    public function register()
+    public function register($register = true)
     {
-        if (isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['password_v'])) {
+        if (isset($_POST['email'])) {
 
-            if ($_POST['password'] === $_POST['password_v']) {
-                // validate
+            if ($register) {
+                if ($_POST['password'] === $_POST['password_v'] && isset($_POST['username'], $_POST['password'], $_POST['password_v'])) {
+                    $user = [
+                        'first_name' => $_POST['first_name'],
+                        'last_name' => $_POST['last_name'],
+                        'username' => $_POST['username'],
+                        'email' => $_POST['email'],
+                        'password' => $_POST['password']
+                    ];
+
+                    $this->auth->register($user);
+                    header('Location: ' . DIR_PUBLIC);
+                }
+            } else {
+                $password = isset($_POST['password'], $_POST['password_v']) && $_POST['password'] == $_POST['password_v'] ? $_POST['password'] : '';
+
+                $user = [
+                    'id' => $this->user['id'],
+                    'username' => $this->user['username'],
+                    'avatar' => $this->user['avatar'],
+                    'date_reg' => $this->user['date_reg'],
+                    'level' => $this->user['level'],
+                    'first_name' => $_POST['first_name'] ?: '',
+                    'last_name' => $_POST['last_name'] ?: '',
+                    'password' => $password,
+                    'email' => $_POST['email']
+                ];
+
+                $result = $this->auth->edit($user);
+
+                if($result) {
+                    $_SESSION['user'] = $user;
+                    header('Location: ' . DIR_PUBLIC . 'user/edit/' . $this->user['id']);
+                    exit();
+                }
             }
+        }
 
-            $user = [
-                'username' => $_POST['username'],
-                'email' => $_POST['email'],
-                'password' => $_POST['password']
-            ];
+        include_once $this->layout;
+    }
 
-            $this->auth->register($user);
+    public function edit()
+    {
+        if (!$this->is_logged) {
             header('Location: ' . DIR_PUBLIC);
+        }
+
+        if (isset($_POST['edit'])) {
+            $this->register(false);
         }
 
         include_once $this->layout;

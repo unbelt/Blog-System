@@ -41,13 +41,25 @@ class Auth
         return false;
     }
 
-    public function is_logged()
+    public function edit($user = [])
     {
-        if (isset($_SESSION['user'])) {
-            return true;
+        $instance = Database::get_instance();
+        $db = $instance->get_db();
+
+        if (isset($user['password'])) {
+            $statement = $db->prepare("UPDATE users SET first_name=?, last_name=?, password=MD5(?), email=? WHERE id=?");
+            $statement->bind_param('ssssi', $user['first_name'], $user['last_name'], $user['password'], $user['email'], $user['id']);
+        } else {
+            $statement = $db->prepare("UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?");
+            $statement->bind_param('ssssi', $user['first_name'], $user['last_name'], $user['email'], $user['id']);
         }
 
-        return false;
+        return $statement->execute();
+    }
+
+    public function is_logged()
+    {
+        return isset($_SESSION['user']) ? true : false;
     }
 
     public function is_admin()
@@ -66,7 +78,7 @@ class Auth
         $instance = Database::get_instance();
         $db = $instance->get_db();
 
-        $statement = $db->prepare("SELECT id, first_name, last_name, username, email, avatar, date_reg, level, status FROM users WHERE username = ? AND password = MD5( ? ) LIMIT 1");
+        $statement = $db->prepare("SELECT * FROM users WHERE username = ? AND password = MD5( ? ) LIMIT 1");
         $statement->bind_param('ss', $username, $password);
 
         $statement->execute();

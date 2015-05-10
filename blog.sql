@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 
--- Версия на сървъра: 5.6.20
+-- Generation Time: May 10, 2015 at 02:36 AM
+-- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Схема на данните от таблица `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
@@ -42,28 +42,22 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
 `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `user_email` varchar(50) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(500) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Схема на данните от таблица `comments`
---
-
-INSERT INTO `comments` (`id`, `post_id`, `user_id`, `date`, `content`) VALUES
-(1, 1, 1, '2015-05-04 22:58:19', 'This is lorem ipsum comment');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `options`
+-- Table structure for table `options`
 --
 
 CREATE TABLE IF NOT EXISTS `options` (
@@ -72,19 +66,10 @@ CREATE TABLE IF NOT EXISTS `options` (
   `value` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Схема на данните от таблица `options`
---
-
-INSERT INTO `options` (`id`, `label`, `value`) VALUES
-('site-email', 'Site Email', 'unbelt@abv.bg'),
-('site-title', 'Site Title', 'The Blob'),
-('site-url', 'Site Url', 'http://');
-
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `post`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE IF NOT EXISTS `posts` (
@@ -94,59 +79,45 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `title` varchar(150) NOT NULL,
   `content` text NOT NULL,
-  `image_url` varchar(150) NOT NULL DEFAULT 'no-image.png',
-  `status` tinyint(1) NOT NULL DEFAULT '1'
+  `image` varchar(150) NOT NULL DEFAULT 'no-image.png',
+  `tags` varchar(150) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `views` int(11) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Схема на данните от таблица `post`
+-- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `category_id`, `user_id`, `date`, `title`, `content`, `image_url`, `status`) VALUES
-(1, 1, 1, '2015-05-04 22:49:44', 'Lorem Ipsum', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'no-image.png', 1);
+INSERT INTO `posts` (`id`, `category_id`, `user_id`, `date`, `title`, `content`, `image`, `tags`, `status`, `views`) VALUES
+(1, 1, 1, '2015-05-09 22:20:40', 'Lorem Ipsum', '<p><strong>The standard Lorem Ipsum passage, used since the 1500s</strong></p>\r\n<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>\r\n<p><strong>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</strong></p>\r\n<p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>\r\n<p><strong>1914 translation by H. Rackham</strong></p>\r\n<p>"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"</p>\r\n<p><strong>Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</strong></p>\r\n<p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>\r\n<p><strong>1914 translation by H. Rackham</strong></p>\r\n<p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."</p>', 'no-image.png', 'lorem, ipsum', 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `tags`
---
-
-CREATE TABLE IF NOT EXISTS `tags` (
-`id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `value` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Схема на данните от таблица `tags`
---
-
-INSERT INTO `tags` (`id`, `post_id`, `value`) VALUES
-(1, 1, 'lorem'),
-(2, 1, 'ipsum');
-
--- --------------------------------------------------------
-
---
--- Структура на таблица `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
 `id` int(11) NOT NULL,
+  `first_name` varchar(20) NOT NULL,
+  `last_name` varchar(20) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(100) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `avatar` varchar(250) NOT NULL DEFAULT 'no-image.png',
   `date_reg` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `level` tinyint(4) NOT NULL DEFAULT '1',
   `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Схема на данните от таблица `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `date_reg`, `level`, `status`) VALUES
-(1, 'Flyer', 'pass123', 'klaxon@abv.bg', '2015-05-04 22:47:23', 1, 1);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `avatar`, `date_reg`, `level`, `status`) VALUES
+(1, 'System', 'Admin', 'Admin', '21232f297a57a5a743894a0e4a801fc3', 'unbelt@outlook.com', 'no-image.png', '2015-05-09 22:09:09', 3, 1),
+(2, 'Karim', '', 'Flyer', '32250170a0dca92d53ec9624f336ca24', 'unbelt@abv.bg', 'no-image.png', '2015-05-09 22:09:25', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -162,7 +133,7 @@ ALTER TABLE `categories`
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
- ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `user_id` (`user_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `options`
@@ -171,16 +142,10 @@ ALTER TABLE `options`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `post`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
  ADD PRIMARY KEY (`id`), ADD KEY `category_id` (`category_id`), ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `tags`
---
-ALTER TABLE `tags`
- ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `users`
@@ -201,45 +166,33 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `post`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tags`
---
-ALTER TABLE `tags`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- Ограничения за дъмпнати таблици
+-- Constraints for dumped tables
 --
 
 --
--- Ограничения за таблица `comments`
+-- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
-ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
 
 --
--- Ограничения за таблица `post`
+-- Constraints for table `posts`
 --
 ALTER TABLE `posts`
 ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
-ADD CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Ограничения за таблица `tags`
---
-ALTER TABLE `tags`
-ADD CONSTRAINT `tags_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
+ADD CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

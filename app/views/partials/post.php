@@ -16,8 +16,7 @@
             <a href="<?= DIR_PUBLIC . 'post/view/' . $post['id']; ?>/#comment">Comments</a>
             &nbsp;&nbsp;
             <span class="glyphicon glyphicon-time"></span> <?= $post['date']; ?>
-            by <span
-                class="glyphicon glyphicon-user"></span> <?= $this->auth->get_user($post['user_id'])['username']; ?>
+            by <span class="glyphicon glyphicon-user"></span> <?= $this->auth->get_user($post['user_id'])['username']; ?>
             <span class="glyphicon glyphicon-eye-open"></span> <?= $post['views']; ?> views
         </div>
     </div>

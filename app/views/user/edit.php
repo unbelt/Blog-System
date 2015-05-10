@@ -1,0 +1,1 @@
+<?php include_once DIR_VIEWS . 'user/register.php';

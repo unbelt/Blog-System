@@ -24,19 +24,30 @@
                 <p class="list-group-item-text"><?= strip_tags(substr($post['content'], 0, 100)); ?></p>
             </div>
         <?php endforeach ?>
-
     </div>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="title">Add Category</label>
+            <input class="form-control" type="text" name="category" id="category" placeholder="Category name">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Save</button>
+        </div>
+    </form>
 </div>
 
 <div class="col-md-8">
 
     <form method="post">
         <div class="form-group">
-            <label for="image">Image:</label>
             <?php if (!empty($opened['image'])): ?>
-                <img width="300" src="<?= DIR_PUBLIC . 'img/' . $opened['image']; ?>" alt="NO IMAGE"/>
+                <div class="img-responsive">
+                    <img class="img-thumbnail" width="400" src="<?= DIR_PUBLIC . 'img/' . $opened['image']; ?>" alt="NO IMAGE"/>
+                </div>
             <?php endif ?>
 
+            <label for="image">Image:</label>
             <input type="file" class="form-control" id="image" name="image" value="<?= $opened['image']; ?>"/>
         </div>
 
@@ -55,8 +66,8 @@
         </div>
 
         <div class="form-group">
-            <label for="category">Category:</label>
-            <select class="form-control" name="category_id" id="category">
+            <label for="category_id">Category:</label>
+            <select class="form-control" name="category_id" id="category_id">
                 <?php foreach ($this->categories as $category) : ?>
                     <option <?php $this->selected($opened['category_id'], $category['id'], 'selected') ?> value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
                 <?php endforeach; ?>

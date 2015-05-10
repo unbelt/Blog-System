@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title><?= App::$page_title ?> | Blog System</title>
-    <link rel="stylesheet" href="<?= DIR_PUBLIC ?>css/main.css">
     <link rel="stylesheet" href="<?= DIR_PUBLIC ?>libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= DIR_PUBLIC ?>css/main.css">
     <link rel="shortcut icon" href="<?= DIR_PUBLIC ?>img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="<?= DIR_PUBLIC ?>img/favicon.ico" type="image/x-icon">
 

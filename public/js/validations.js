@@ -81,9 +81,6 @@ $(document).ready(function () {
             },
             password: {
                 validators: {
-                    notEmpty: {
-                        message: 'The password is required'
-                    },
                     stringLength: {
                         min: 5,
                         message: 'The password must be between more than 5 characters'
@@ -92,9 +89,6 @@ $(document).ready(function () {
             },
             password_v: {
                 validators: {
-                    notEmpty: {
-                        message: 'The password is required'
-                    },
                     identical: {
                         field: 'password',
                         message: 'The password and its confirm must be the same'

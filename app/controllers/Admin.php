@@ -1,5 +1,7 @@
 <?php namespace Controllers;
 
+use Models\Category;
+
 class Admin extends Controller
 {
     protected $data = [];
@@ -8,7 +10,7 @@ class Admin extends Controller
     {
         parent::__construct('post');
 
-        if ($this->user['level'] !== 3) {
+        if (!$this->is_admin) {
             header('Location: ' . DIR_PUBLIC);
         }
     }
@@ -29,10 +31,20 @@ class Admin extends Controller
                 'content' => $_POST['content'],
                 'image' => $image,
                 'tags' => $_POST['tags'],
-                'status' => $_POST['status'],
+                'status' => $_POST['status']
             ];
 
             $result = $this->model->post($post);
+
+            if ($result) {
+                header('Location: ' . DIR_PUBLIC . 'admin');
+            }
+        }
+
+        if (isset($_POST['category'])) {
+            include_once DIR_MODELS . 'Category.php';
+            $category_class = new Category();
+            $result = $category_class->post($_POST['category']);
 
             if ($result) {
                 header('Location: ' . DIR_PUBLIC . 'admin');
@@ -58,7 +70,7 @@ class Admin extends Controller
                 'content' => $_POST['content'],
                 'image' => $image,
                 'tags' => $_POST['tags'],
-                'status' => $_POST['status'],
+                'status' => $_POST['status']
             ];
 
             $result = $this->model->update($post);
