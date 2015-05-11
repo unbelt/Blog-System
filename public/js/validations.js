@@ -1,5 +1,6 @@
 $(document).ready(function () {
-// Login
+
+    // Login
     $('#login-form').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -41,7 +42,7 @@ $(document).ready(function () {
         }
     });
 
-// Register
+    // Register
     $('#register-form').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -98,7 +99,7 @@ $(document).ready(function () {
         }
     });
 
-// Edit Post
+    // Edit Post
     $('#edit-form').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -177,7 +178,7 @@ $(document).ready(function () {
         }
     });
 
-// Contact
+    // Contact
     $('#contact-form').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',

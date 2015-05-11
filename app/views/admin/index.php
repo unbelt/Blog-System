@@ -39,22 +39,25 @@
 
 <div class="col-md-8">
 
-    <form method="post">
+    <form enctype="multipart/form-data" method="POST">
         <div class="form-group">
             <?php if (!empty($opened['image'])): ?>
                 <div class="img-responsive">
-                    <img class="img-thumbnail" width="400" src="<?= DIR_PUBLIC . 'img/' . $opened['image']; ?>" alt="NO IMAGE"/>
+                    <img class="img-thumbnail" width="400" src="<?= DIR_PUBLIC . 'img/' . $opened['image']; ?>"
+                         alt="NO IMAGE"/>
                 </div>
             <?php endif ?>
 
             <label for="image">Image:</label>
-            <input type="file" class="form-control" id="image" name="image" value="<?= $opened['image']; ?>"/>
+            <input type="file" class="form-control" name="file" id="file"/>
         </div>
 
         <div class="form-group">
             <label for="status">Status:</label>
             <select class="form-control" name="status" id="status">
-                <option <?php $this->selected($opened['status'], 1, 'selected') ?> value="1" selected="selected">Published</option>
+                <option <?php $this->selected($opened['status'], 1, 'selected') ?> value="1" selected="selected">
+                    Published
+                </option>
                 <option <?php $this->selected($opened['status'], 2, 'selected') ?> value="2">Private</option>
             </select>
         </div>
@@ -69,7 +72,8 @@
             <label for="category_id">Category:</label>
             <select class="form-control" name="category_id" id="category_id">
                 <?php foreach ($this->categories as $category) : ?>
-                    <option <?php $this->selected($opened['category_id'], $category['id'], 'selected') ?> value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+                    <option <?php $this->selected($opened['category_id'], $category['id'], 'selected') ?>
+                        value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

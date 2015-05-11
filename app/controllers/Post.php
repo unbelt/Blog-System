@@ -17,10 +17,17 @@ class Post extends Controller
     public function view($id = '')
     {
         $post = $this->model->get($id)[0];
-
         if ($post['status'] != 1) {
             header('Location: ' . DIR_PUBLIC);
         }
+
+        if(!isset($_SESSION[$id]['views'])) {
+            $_SESSION[$id]['views'] = 0;
+        }
+        $_SESSION[$id]['views']++;
+
+        $post['views'] =  $_SESSION[$id]['views'];
+        $this->model->update($post);
 
         if (empty($post)) {
             $this->view = '404';
@@ -69,20 +76,5 @@ class Post extends Controller
 
         $this->view = 'home/index';
         include_once $this->layout;
-    }
-
-    public function create($post)
-    {
-        include_once NO_SIDEBAR_LAYOUT;
-    }
-
-    public function edit($id)
-    {
-        $this->view = 'post/create';
-        include_once NO_SIDEBAR_LAYOUT;
-    }
-
-    public function delete($id)
-    {
     }
 }

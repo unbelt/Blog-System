@@ -32,67 +32,6 @@ require(['jquery', 'bootstrap', 'validations', 'tinymce'], function ($) {
                 $(this).attr('target', '_blank');
             }
         });
-
-        // Comments
-        /*(function () {
-
-            // Show/Hide Comments
-            $('.close').click(function () {
-                $('.comment-' + $(this).attr('id')).slideToggle();
-                $(this).toggleClass('fa-chevron-up fa-chevron-down');
-            });
-
-            $('.titleBox .close').click(function () {
-                $('.commentList').slideToggle();
-            });
-
-            // Delete Post
-            $('.delete').click(function () {
-
-                var commentid = $(this).attr('data-commentid'),
-                    comment = $('.comment-' + commentid);
-
-                if (confirm('Confirm delete?')) {
-                    $.get('../ajax/del-comments.php?ajax=true&id=' + commentid);
-                    $(comment).fadeOut();
-                    $(this).fadeOut();
-                    $('#' + commentid).fadeOut();
-                }
-            });
-
-            $('#comment-form').on('submit', function () {
-                var that = $(this),
-                    url = that.attr('action'),
-                    type = that.attr('method'),
-                    data = {};
-
-                that.find('[name]').each(function () {
-                    var that = $(this),
-                        name = that.attr('name'),
-                        value = that.val();
-                    data[name] = value;
-                });
-
-                $.ajax({
-                    url: url,
-                    type: type,
-                    data: data,
-                    success: function () {
-                        status.attr('class', 'alert alert-success');
-                        status.html('Thank you for the comment!');
-                        comments.prepend(template(data));
-                        well.remove();
-                    },
-                    error: function () {
-                        status.attr('class', 'alert alert-warning');
-                        status.html('Something went wrong!');
-                    }
-                });
-
-                return false;
-            });
-        }());*/
-
     });
 
     tinymce.init({

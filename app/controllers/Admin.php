@@ -1,10 +1,12 @@
 <?php namespace Controllers;
 
+use Config\Storage;
 use Models\Category;
 
 class Admin extends Controller
 {
     protected $data = [];
+    protected $storage;
 
     public function __construct()
     {
@@ -13,16 +15,19 @@ class Admin extends Controller
         if (!$this->is_admin) {
             header('Location: ' . DIR_PUBLIC);
         }
+
+        include_once DIR_CONFIG . 'Storage.php';
+        $this->storage = new Storage();
     }
 
     public function index()
     {
-        $this->data = $this->model->find();
+        $this->data = $this->model->find(['order_by' => 'date desc']);
         $opened = ['date' => '', 'title' => '', 'content' => '', 'image' => '', 'tags' => '', 'category_id' => '', 'status' => ''];
 
         if (isset($_POST['title'], $_POST['category_id'], $_POST['tags'], $_POST['content'])) {
-
-            $image = isset($_POST['image']) ? $_POST['image'] : 'no-image.png';
+            $image = isset($_POST['file']) ? $_POST['file'] : 'no-image.png';
+            $this->storage->uploadImg();
 
             $post = [
                 'category_id' => $_POST['category_id'],
@@ -59,8 +64,8 @@ class Admin extends Controller
         $opened = $this->model->get($id)[0];
 
         if (isset($_POST['title'], $_POST['category_id'], $_POST['tags'], $_POST['content'])) {
-
-            $image = isset($_POST['image']) ? $_POST['image'] : $opened['image'];
+            $image = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : $opened['image'];
+            $this->storage->uploadImg();
 
             $post = [
                 'id' => $id,

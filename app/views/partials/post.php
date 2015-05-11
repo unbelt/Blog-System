@@ -5,18 +5,21 @@
         <div class="col-sm-6 col-md-5">
             <span class="glyphicon glyphicon-bookmark"></span>
             <?php
-            $tags = $this->model->find(['table' => 'tags', 'where' => 'post_id = ' . $post['id']]);
-
-            foreach ($tags as $tag): ?>
-                <a href="<?= DIR_PUBLIC . 'post/tag/' . $tag['value'] ?>"><?= $tag['value'] ?></a>
-            <?php endforeach ?>
+            $tags = $this->model->find(['columns' => 'tags', 'where' => 'id = ' . $post['id']]);
+            if($tags){
+                $tags = explode(', ', $tags[0]['tags']);
+            }
+            foreach ($tags as $tag)  { ?>
+                <a href="<?= DIR_PUBLIC . 'post/tag/' . $tag ?>"><?= $tag ?></a>
+            <?php } ?>
         </div>
         <div class="col-sm-6 col-md-7">
             <span class="glyphicon glyphicon-pencil"></span>
             <a href="<?= DIR_PUBLIC . 'post/view/' . $post['id']; ?>/#comment">Comments</a>
             &nbsp;&nbsp;
             <span class="glyphicon glyphicon-time"></span> <?= $post['date']; ?>
-            by <span class="glyphicon glyphicon-user"></span> <?= $this->auth->get_user($post['user_id'])['username']; ?>
+            by <span
+                class="glyphicon glyphicon-user"></span> <?= $this->auth->get_user($post['user_id'])['username']; ?>
             <span class="glyphicon glyphicon-eye-open"></span> <?= $post['views']; ?> views
         </div>
     </div>
